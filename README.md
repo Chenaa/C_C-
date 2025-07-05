@@ -1,133 +1,46 @@
-![2025-07-04](https://github.com/user-attachments/assets/4c27a0bb-7438-41b4-98f8-2406117adf62)
+Лекции в [прямом эфире на Twitch](https://www.twitch.tv/olgampavlova) каждую пятницу в 🕖 19:00 GMT+3.
 
-Youtube-запись от `2025-07-04`: https://youtu.be/wA02DPjQhqQ
+Видеозаписи лекций на [Youtube-канале](https://www.youtube.com/@olgapavlova).
 
-# Скрещиваем Docker, Makefile и gcc
+# Материалы лекций
 
-Некоторые
-задачи
-возникают
-**постоянно**
+## Дополнения к базе языка C
+1. [Основы модульного тестирования в C](unit_testing_base/) ```2024-11-22```
+1. [Нюансы работы с файлами в C на Linux](https://github.com/olgapavlova/lectures/tree/main/file_in_c_linux) ```2024-11-29```
+1. [Отладчики в С • gdb—lldb](https://github.com/olgapavlova/lectures/tree/main/gdb) ```2024-12-06```
+1. [Логи в небольших проектах на C](https://github.com/olgapavlova/lectures/tree/main/logs) ```2024-12-13```
+1. [Продвинутые техники и конкретные приёмы работы в <check.h>](https://github.com/olgapavlova/lectures/tree/main/checkplus) ```2024-12-20```
+1. [Приёмы использования указателей на функции](https://github.com/olgapavlova/lectures/blob/main/function_pointers/) ```2024-12-27```
+1. [Мнимый полиморфизм в Си](https://github.com/olgapavlova/lectures/tree/main/polymorphism) ```2025-01-03```
+1. [Ошибки как часть дизайна программы на Си](https://github.com/olgapavlova/lectures/tree/main/errors_design) ```2025-01-10```
+1. [Как делать функции с произвольным количеством аргументов произвольных типов](https://github.com/olgapavlova/lectures/tree/main/menu_vargs) ```2025-01-17```
+1. [Практикуем мышление указателями](https://github.com/olgapavlova/lectures/tree/main/pointer_thinking) ```2025-01-24```
+1. [Как работает и не работает обобщённый указатель void * в языке C (Си)](https://github.com/olgapavlova/lectures/tree/main/voidstar) ```2025-01-31```
+1. [Препроцессор и его макросы в C](https://github.com/olgapavlova/lectures/blob/main/macro/) ```2025-02-07```
+1. [(Анти)паттерн Singleton в C (Си)](https://github.com/olgapavlova/lectures/tree/main/singleton) ```2025-02-14```
+1. [Менеджер динамической памяти для небольших проектов на C](https://github.com/olgapavlova/lectures/tree/main/regmem) ```2025-02-21```
+1. [Структуры данных для себя, любимых](https://github.com/olgapavlova/lectures/tree/main/structdata) ```2025-02-28```
 
+## Знания, полезные для создания драйверов
+1. [Механизм setjmp()/longjmp()](https://github.com/olgapavlova/lectures/tree/main/setjmp) ```2025-03-07```
+1. [Роль побитовых операций в C](https://github.com/olgapavlova/lectures/tree/main/bitops) ```2025-03-14```
+1. [Самое-самое начало многопоточности](https://github.com/olgapavlova/lectures/blob/main/threads/) ```2025-03-21```
+1. [Многопоточный сканер сети](https://github.com/olgapavlova/lectures/tree/main/threadsync) ```2025-03-28```
+1. [Первый модуль ядра и инструменты для его разглядывания](https://github.com/olgapavlova/lectures/tree/main/khello) ```2025-04-04```
+1. [Превращаем модуль ядра в драйвер](https://github.com/olgapavlova/lectures/tree/main/chardrive) `2025-04-11`
+1. [Шина, протокол, микроконтроллер — наглядное первое знакомство](https://github.com/olgapavlova/lectures/tree/main/tinyhard) `2025-04-18`
+1. [Виртуальная и физическая память в ядре Linux • Щупаем средствами C](https://github.com/olgapavlova/lectures/tree/main/kmemory) `2025-04-25`
+1. [Цена «естественных прав» на память в ядре Linux • Щупаем средствами C](https://github.com/olgapavlova/lectures/tree/main/kalloc) `2025-05-02`
 
-Решить лучше **один раз**
+## Проект «Старая клавиатура» (базовый для изучения драйверов)
+1. [Порты, протоколы и регистры на нашу голову](https://github.com/olgapavlova/lectures/tree/main/kbmicro) `2025-05-09`
+1. [Превращаем электричество в данные на микроконтроллере ATmega32u4](https://github.com/olgapavlova/lectures/tree/main/kuart) `2025-05-16`
+1. [USB HID + запуск хоть чего-то на разных микроконтроллерах](https://github.com/olgapavlova/lectures/tree/main/usbhid) `2025-05-23`
+1. [USB HID • Реализация на LUFA](https://github.com/olgapavlova/lectures/tree/main/lufa) `2025-05-30`
+1. [Обработка сигналов от специальной клавиатуры](https://github.com/olgapavlova/lectures/tree/main/kspec) `2025-06-06`
 
-
-**Good enough** достаточно
-
-
-### Универсальный `Makefile` для `Docker` «изнутри и снаружи»
-
-
-Разработка через Docker-контейнер
-
-
-
-Запуск на машине эквивалентной конфигурации
-
-
-
-Имена целей фиксированы
-
-
-```mermaid
-flowchart LR
-
-make(Makefile)
-
-subgraph Конфигурация
-docker(Контейнер)
-hard(Железо)
-end
-
-goal((•))
-goal_((••))
-
-make:::green ==> |docker| goal:::black ==> |make| goal_
-goal_ ==> docker:::yellow
-make -.->|make| goal_:::black
-goal_ -.-> hard:::blue
-
-classDef green fill:#B8BA46;
-classDef yellow fill:#FABD2F;
-classDef black fill:#504945,color:#fff;
-classDef blue fill:#2C78BF,color:#fff;
-```
-
-- Добавить docker-команду в `Makefile` не так-то просто
-    
-    ```bash
-    PRJ_DIR := $(shell pwd)/../../
-    SHELL   := /bin/bash
-    ```
-    
-- Потом что-то вроде…
-    
-    ```makefile
-    %.docker:
-    	# Переход в Docker-контейнер
-    	docker run --rm -v $(PRJ_DIR):$(DOCKER_PRJ_DIR) $(DOCKER_IMG) make $*
-    ```
-    
-- …и после всех собранных граблей:
-    
-    ```makefile
-    SHELL         := /bin/bash
-    MAKEPOSTFLAGS := --no-print-directory
-    ...
-    DOCKER_IMG := dev
-    DOCKER_CNT := env
-    DOCKER_PRJ_DIR := /prj
-    DOCKER_START := docker run --rm \
-    							  --name $(DOCKER_CNT) \
-    								-v $(PRJ_DIR):$(DOCKER_PRJ_DIR) \
-    								$(DOCKER_IMG)
-    ...
-    %.:
-    	# Переход в Docker-контейнер
-    	$(DOCKER_START) $(MAKE) -C $(DOCKER_PRJ_DIR) $* $(MAKEPOSTFLAGS) 2>/dev/null
-    ```
-    
-
-### Ааа, сколько переменных в `Makefile`!
-
-- Вынести конфиг в отдельный файл
-    
-    ```makefile
-    include config.mk
-    ```
-    
-- Гигиена: добавил переменную — добавь диагностический вывод
-    
-    ```makefile
-    CC         := gcc
-    CFLAGS     := -Wall -Wextra -Werror -std=c11 -g \
-                  -I. \
-                  -Ihelpers \
-                  -Is21 \
-                  -Ilib\
-                  -DLOGDEF
-    LDFLAGS    := -lm -lpthread
-    __desc_config_cc:
-        @echo
-        # Настройки компилятора
-        @echo " Компилятор:        " $(CC)
-        @echo " Флаги компиляции:  " $(CFLAGS)
-        @echo " Флаги линковки:    " $(LDFLAGS)
-    
-    ```
-    
-    
-    **Вопрос для быстро читающих код:** что бы тут такого ещё вынести в переменную?
-    
-    
-    
-- Группировка служебных целей диагностического вывода
-    
-    ```makefile
-    desc_config: __desc_config_make \
-                 __desc_config_dir \
-                 __desc_config_docker \
-                 __desc_config_cc
-        @echo
-    ```
+## Источники и инструменты
+1. [Бумажные книги по C и смежным вопросам](https://github.com/olgapavlova/lectures/tree/main/books) `2025-06-13`
+1. [Шаблон небольшого проекта на C • Начало](https://github.com/olgapavlova/lectures/tree/main/ctemp_start) `2025-06-20`
+1. Makefile для новичков: пара приёмов и общий настрой использования `2025-06-27`
+1. [Скрещиваем Docker, Makefile и gcc](mosaic/) `2025-07-04`
